@@ -14,7 +14,6 @@
         }
     ],
     "autoload": {
-        "psr-0": { "Bkstg\\ResourceBundle": "" }
-    },
-    "target-dir": "Bkstg/ResourceBundle"
+        "psr-4": { "Bkstg\\ResourceBundle": "" }
+    }
 }
