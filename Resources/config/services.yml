@@ -1,0 +1,37 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # Bundle service.
+    Bkstg\ResourceBundle\BkstgResourceBundle: ~
+
+    # Dependency injection services.
+    Bkstg\ResourceBundle\DependencyInjection\:
+        resource: '../../DependencyInjection'
+
+    # Controller services.
+    Bkstg\ResourceBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags:
+            - { name: controller.service_arguments }
+
+    # Form type services.
+    Bkstg\ResourceBundle\Form\:
+        resource: '../../Form'
+        tags:
+            - { name: form.type }
+
+    # Event subscriber services.
+    Bkstg\ResourceBundle\EventSubscriber\:
+        resource: '../../EventSubscriber'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    # Security voter services.
+    Bkstg\ResourceBundle\Security\:
+        resource: '../../Security'
+        tags:
+            - { name: security.voter }
