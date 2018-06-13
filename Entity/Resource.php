@@ -2,80 +2,29 @@
 
 namespace Bkstg\ResourceBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Bkstg\CoreBundle\Entity\Production;
+use Bkstg\MediaBundle\Entity\Media;
+use Doctrine\Common\Collections\ArrayCollection;
+use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
+use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
 
-/**
- * Resource
- *
- * @ORM\Table(name="resources")
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
- */
-class Resource
+class Resource implements GroupableInterface
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
     private $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Bkstg\CoreBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
-     */
-    private $user;
-
-    /**
-     * @var \DateTime
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="created", type="datetime")
-     */
+    private $name;
+    private $description;
+    private $pinned;
+    private $status;
+    private $author;
     private $created;
+    private $updated;
+    private $media;
+    private $groups;
 
-    /**
-     * @var \DateTime
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="changed", type="datetime")
-     */
-    private $changed;
-
-    /**
-     * @ORM\Column(name="title", type="string", length=140)
-     * @Assert\NotBlank
-     */
-    private $title;
-
-    /**
-     * @ORM\Column(name="path", type="string", nullable=false)
-     */
-    private $path;
-
-    /**
-     * @Assert\File(
-     *     maxSize = "8M",
-     *     mimeTypes = {
-     *         "image/jpeg",
-     *         "image/gif",
-     *         "image/png",
-     *         "image/tiff",
-     *         "application/pdf",
-     *         "application/msword",
-     *         "application/excel",
-     *         "text/plain"
-     *     },
-     *     maxSizeMessage = "The maxmimum allowed file size is 8MB.",
-     *     mimeTypesMessage = "Filetype not allowed."
-     * )
-     */
-    private $file;
+    public function __construct()
+    {
+        $this->groups = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -88,216 +37,207 @@ class Resource
     }
 
     /**
-     * Set created
-     *
-     * @param \DateTime $created
-     * @return Resource
-     */
-    public function setCreated($created)
+    * Get name
+    * @return
+    */
+    public function getName(): ?string
     {
-        $this->created = $created;
+        return $this->name;
+    }
 
+    /**
+    * Set name
+    * @return $this
+    */
+    public function setName(string $name): self
+    {
+        $this->name = $name;
         return $this;
     }
 
     /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated()
+    * Get description
+    * @return
+    */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+    * Set description
+    * @return $this
+    */
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+    * Get pinned
+    * @return
+    */
+    public function getPinned(): ?bool
+    {
+        return $this->pinned;
+    }
+
+    /**
+    * Set pinned
+    * @return $this
+    */
+    public function setPinned(bool $pinned): self
+    {
+        $this->pinned = $pinned;
+        return $this;
+    }
+
+    /**
+    * Get status
+    * @return
+    */
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    /**
+    * Set status
+    * @return $this
+    */
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+    * Get author
+    * @return
+    */
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    /**
+    * Set author
+    * @return $this
+    */
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+    /**
+    * Get created
+    * @return
+    */
+    public function getCreated(): ?\DateTimeInterface
     {
         return $this->created;
     }
 
     /**
-     * Set changed
-     *
-     * @param \DateTime $changed
-     * @return Resource
-     */
-    public function setChanged($changed)
+    * Set created
+    * @return $this
+    */
+    public function setCreated(\DateTimeInterface $created): self
     {
-        $this->changed = $changed;
-
+        $this->created = $created;
         return $this;
     }
 
     /**
-     * Get changed
-     *
-     * @return \DateTime
-     */
-    public function getChanged()
+    * Get updated
+    * @return
+    */
+    public function getUpdated(): ?\DateTimeInterface
     {
-        return $this->changed;
+        return $this->updated;
     }
 
     /**
-     * Set title
-     *
-     * @param string $title
-     * @return Resource
-     */
-    public function setTitle($title)
+    * Set updated
+    * @return $this
+    */
+    public function setUpdated(\DateTimeInterface $updated): self
     {
-        $this->title = $title;
-
+        $this->updated = $updated;
         return $this;
     }
 
     /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
+    * Get media
+    * @return
+    */
+    public function getMedia(): ?Media
     {
-        return $this->title;
+        return $this->media;
     }
 
     /**
-     * Set path
-     *
-     * @param string $path
-     * @return Resource
-     */
-    public function setPath($path)
+    * Set media
+    * @return $this
+    */
+    public function setMedia(Media $media): self
     {
-        $this->path = $path;
-
+        $this->media = $media;
         return $this;
     }
 
     /**
-     * Get path
+     * Add group
      *
-     * @return string
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * Set user
+     * @param Production $group
      *
-     * @param \Bkstg\CoreBundle\Entity\User $user
-     * @return Resource
+     * @return Post
      */
-    public function setUser(\Bkstg\CoreBundle\Entity\User $user)
+    public function addGroup(GroupInterface $group): self
     {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Bkstg\CoreBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Sets file.
-     *
-     * @param UploadedFile $file
-     */
-    public function setFile(UploadedFile $file = null)
-    {
-        $this->file = $file;
-    }
-
-    /**
-     * Get file.
-     *
-     * @return UploadedFile
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * Called before saving the entity
-     *
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function preUpload()
-    {
-        if (null !== $this->file) {
-            // do whatever you want to generate a unique name
-            $filename = sha1(uniqid(mt_rand(), true));
-            $this->path = $filename . '.' . $this->file->guessExtension();
+        if (!$group instanceof Production) {
+            throw new \Exception('Group type not supported.');
         }
+        $this->groups[] = $group;
+
+        return $this;
     }
 
     /**
-     * Called before entity removal
+     * Remove group
      *
-     * @ORM\PreRemove()
+     * @param Production $group
      */
-    public function removeUpload()
+    public function removeGroup(GroupInterface $group): self
     {
-        if ($file = $this->getAbsolutePath()) {
-            unlink($file);
+        if (!$group instanceof Production) {
+            throw new \Exception('Group type not supported.');
         }
+        $this->groups->removeElement($group);
     }
 
     /**
-     * Called after entity persistence
+     * Get groups
      *
-     * @ORM\PostPersist()
-     * @ORM\PostUpdate()
+     * @return Collection
      */
-    public function upload()
+    public function getGroups()
     {
-        // The file property can be empty if the field is not required
-        if (null === $this->file) {
-            return;
+        return $this->groups;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasGroup(GroupInterface $group): bool
+    {
+        foreach ($this->groups as $my_group) {
+            if ($group->isEqualTo($my_group)) {
+                return true;
+            }
         }
-
-        // move takes the target directory and then the
-        // target filename to move to
-        $this->file->move(
-            $this->getUploadRootDir(),
-            $this->path
-        );
-
-        // Clean up the file property as you won't need it anymore
-        $this->file = null;
-    }
-
-    public function getAbsolutePath()
-    {
-        return null === $this->path
-            ? null
-            : $this->getUploadRootDir() . '/' . $this->path;
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->path
-            ? null
-            : $this->getUploadDir() . '/' . $this->path;
-    }
-
-    protected function getUploadRootDir()
-    {
-        // the absolute directory path where uploaded
-        // documents should be saved
-        return __DIR__.'/../../../../web/' . $this->getUploadDir();
-    }
-
-    protected function getUploadDir()
-    {
-        // get rid of the __DIR__ so it doesn't screw up
-        // when displaying uploaded doc/image in the view.
-        return 'uploads/resources';
+        return false;
     }
 }

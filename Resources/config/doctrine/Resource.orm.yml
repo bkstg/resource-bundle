@@ -1,0 +1,40 @@
+Bkstg\ResourceBundle\Entity\Resource:
+    type: entity
+    repositoryClass: Bkstg\ResourceBundle\Repository\ResourceRepository
+
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    fields:
+        name:
+            type: string
+        description:
+            type: text
+            nullable: true
+        pinned:
+            type: boolean
+        status:
+            type: boolean
+        author:
+            type: string
+        created:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updated:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+
+    manyToMany:
+        groups:
+            targetEntity: Bkstg\CoreBundle\Entity\Production
+    oneToOne:
+        media:
+          targetEntity: Bkstg\MediaBundle\Entity\Media
