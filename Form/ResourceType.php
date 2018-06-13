@@ -2,47 +2,66 @@
 
 namespace Bkstg\ResourceBundle\Form;
 
+use Bkstg\ResourceBundle\Entity\Resource;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Sonata\MediaBundle\Form\Type\MediaType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Bkstg\CoreBundle\Form\DataTransformer\UserToNumberTransformer;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ResourceType extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $entityManager = $options['em'];
-        $userTransformer = new UserToNumberTransformer($entityManager);
         $builder
-            ->add('title', 'text', array('label' => 'Resource title'))
-            ->add('file')
-            ->add(
-                $builder->create('user', 'hidden')
-                    ->addModelTransformer($userTransformer)
-            );
+            ->add('image', MediaType::class, [
+                'label' => 'resource.form.image',
+                'provider' => 'sonata.media.provider.file',
+                'context'  => 'default',
+            ])
+            ->add('name', TextType::class, [
+                'label' => 'resource.form.name',
+            ])
+            ->add('description', CKEditorType::class, [
+                'label' => 'resource.form.body',
+                'config' => ['toolbar' => 'basic'],
+                'required' => false,
+            ])
+            ->add('status', ChoiceType::class, [
+                'label' => 'resource.form.status',
+                'choices' => [
+                    'Active' => true,
+                    'Closed' => false,
+                ],
+            ])
+            ->add('pinned', CheckboxType::class, [
+                'label' => 'resource.form.pinned',
+                'required' => false,
+            ])
+        ;
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver
-            ->setDefaults(array(
-                'data_class' => 'Bkstg\ResourceBundle\Entity\Resource'
-            ))
-            ->setRequired(array('em'))
-            ->setAllowedTypes('em', 'Doctrine\Common\Persistence\ObjectManager');
+        $resolver->setDefaults([
+            'translation_domain' => 'BkstgResourceBundle',
+            'data_class' => Resource::class,
+        ]);
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'bkstg_resourcebundle_resource';
     }
