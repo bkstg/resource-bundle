@@ -37,18 +37,18 @@ class Resource implements GroupableInterface
     }
 
     /**
-    * Get name
-    * @return
-    */
+     * Get name
+     * @return
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-    * Set name
-    * @return $this
-    */
+     * Set name
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -56,18 +56,18 @@ class Resource implements GroupableInterface
     }
 
     /**
-    * Get description
-    * @return
-    */
+     * Get description
+     * @return
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
-    * Set description
-    * @return $this
-    */
+     * Set description
+     * @return $this
+     */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -75,18 +75,18 @@ class Resource implements GroupableInterface
     }
 
     /**
-    * Get pinned
-    * @return
-    */
+     * Get pinned
+     * @return
+     */
     public function getPinned(): ?bool
     {
         return $this->pinned;
     }
 
     /**
-    * Set pinned
-    * @return $this
-    */
+     * Set pinned
+     * @return $this
+     */
     public function setPinned(bool $pinned): self
     {
         $this->pinned = $pinned;
@@ -94,18 +94,18 @@ class Resource implements GroupableInterface
     }
 
     /**
-    * Get status
-    * @return
-    */
+     * Get status
+     * @return
+     */
     public function getStatus(): ?bool
     {
         return $this->status;
     }
 
     /**
-    * Set status
-    * @return $this
-    */
+     * Set status
+     * @return $this
+     */
     public function setStatus(bool $status): self
     {
         $this->status = $status;
@@ -113,18 +113,18 @@ class Resource implements GroupableInterface
     }
 
     /**
-    * Get author
-    * @return
-    */
+     * Get author
+     * @return
+     */
     public function getAuthor(): ?string
     {
         return $this->author;
     }
 
     /**
-    * Set author
-    * @return $this
-    */
+     * Set author
+     * @return $this
+     */
     public function setAuthor(string $author): self
     {
         $this->author = $author;
@@ -132,18 +132,18 @@ class Resource implements GroupableInterface
     }
 
     /**
-    * Get created
-    * @return
-    */
+     * Get created
+     * @return
+     */
     public function getCreated(): ?\DateTimeInterface
     {
         return $this->created;
     }
 
     /**
-    * Set created
-    * @return $this
-    */
+     * Set created
+     * @return $this
+     */
     public function setCreated(\DateTimeInterface $created): self
     {
         $this->created = $created;
@@ -151,18 +151,18 @@ class Resource implements GroupableInterface
     }
 
     /**
-    * Get updated
-    * @return
-    */
+     * Get updated
+     * @return
+     */
     public function getUpdated(): ?\DateTimeInterface
     {
         return $this->updated;
     }
 
     /**
-    * Set updated
-    * @return $this
-    */
+     * Set updated
+     * @return $this
+     */
     public function setUpdated(\DateTimeInterface $updated): self
     {
         $this->updated = $updated;
@@ -170,18 +170,18 @@ class Resource implements GroupableInterface
     }
 
     /**
-    * Get media
-    * @return
-    */
+     * Get media
+     * @return
+     */
     public function getMedia(): ?Media
     {
         return $this->media;
     }
 
     /**
-    * Set media
-    * @return $this
-    */
+     * Set media
+     * @return $this
+     */
     public function setMedia(Media $media): self
     {
         $this->media = $media;
