@@ -20,8 +20,8 @@ class ResourceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('image', MediaType::class, [
-                'label' => 'resource.form.image',
+            ->add('media', MediaType::class, [
+                'label' => 'resource.form.file',
                 'provider' => 'sonata.media.provider.file',
                 'context'  => 'default',
             ])
@@ -29,7 +29,7 @@ class ResourceType extends AbstractType
                 'label' => 'resource.form.name',
             ])
             ->add('description', CKEditorType::class, [
-                'label' => 'resource.form.body',
+                'label' => 'resource.form.description',
                 'config' => ['toolbar' => 'basic'],
                 'required' => false,
             ])

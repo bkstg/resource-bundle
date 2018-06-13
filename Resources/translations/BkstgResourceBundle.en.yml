@@ -1,0 +1,11 @@
+menu:
+    resources: 'Resources'
+resource:
+    created: Resource created.
+    updated: Resource %name% updated.
+    form:
+        status: Status
+        name: Name
+        file: File
+        description: Description
+        pinned: Pinned

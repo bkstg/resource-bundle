@@ -1,20 +1,20 @@
 bkstg_resource_index:
     path: /
     defaults:
-        _controller: Bkstg\ResourceController\Controller\ResourceController:indexAction
+        _controller: Bkstg\ResourceBundle\Controller\ResourceController:indexAction
 bkstg_resource_create:
     path: /create
     defaults:
-        _controller: Bkstg\ResourceController\Controller\ResourceController:createAction
+        _controller: Bkstg\ResourceBundle\Controller\ResourceController:createAction
 bkstg_resource_show:
     path: /{id}
     defaults:
-        _controller: Bkstg\ResourceController\Controller\ResourceController:readAction
+        _controller: Bkstg\ResourceBundle\Controller\ResourceController:readAction
 bkstg_resource_edit:
     path: /{id}/edit
     defaults:
-        _controller: Bkstg\ResourceController\Controller\ResourceController:updateAction
+        _controller: Bkstg\ResourceBundle\Controller\ResourceController:updateAction
 bkstg_resource_delete:
     path: /{id}/delete
     defaults:
-        _controller: Bkstg\ResourceController\Controller\ResourceController:deleteAction
+        _controller: Bkstg\ResourceBundle\Controller\ResourceController:deleteAction

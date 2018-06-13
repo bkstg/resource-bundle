@@ -38,3 +38,6 @@ Bkstg\ResourceBundle\Entity\Resource:
     oneToOne:
         media:
           targetEntity: Bkstg\MediaBundle\Entity\Media
+          cascade:
+            - persist
+            - remove

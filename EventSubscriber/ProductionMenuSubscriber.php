@@ -36,7 +36,7 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
         // return the subscribed events, their methods and priorities
         return array(
            ProductionMenuCollectionEvent::NAME => array(
-               array('addResourceItem', 15),
+               array('addResourceItem', 0),
            )
         );
     }
@@ -48,12 +48,12 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
 
         // Create resource menu item.
         $resource = $this->factory->createItem(
-            $this->translator->trans('menu.resource', [], 'BkstgResourceBundle'), [
+            $this->translator->trans('menu.resources', [], 'BkstgResourceBundle'), [
             'uri' => $this->url_generator->generate(
-                'bkstg_resource_show',
+                'bkstg_resource_index',
                 ['production_slug' => $group->getSlug()]
             ),
-            'extras' => ['icon' => 'file-alt'],
+            'extras' => ['icon' => 'file'],
         ]);
         $menu->addChild($resource);
     }

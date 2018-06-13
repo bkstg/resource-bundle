@@ -1,0 +1,5 @@
+{% extends '@BkstgCore/layout.html.twig' %}
+{% set page_title = resource.name %}
+{% block content %}
+  {% include '@BkstgResource/Resource/_actions.html.twig' with { 'resource': resource, 'production': production } only %}
+{% endblock %}

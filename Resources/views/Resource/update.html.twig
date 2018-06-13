@@ -1,0 +1,7 @@
+{% extends '@BkstgCore/layout.html.twig' %}
+{% trans_default_domain 'BkstgScheduleBundle' %}
+{% set page_title = 'Update resource "%name%"'|trans({'%name%': resource.name}) %}
+{% block content %}
+  {% include '@BkstgResource/Resource/_actions.html.twig' with { 'resource': resource, 'production': production } only %}
+  {% include '@BkstgResource/Resource/_form.html.twig' with { 'form': form } only %}
+{% endblock %}

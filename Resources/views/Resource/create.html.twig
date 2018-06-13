@@ -1,0 +1,8 @@
+{% extends '@BkstgCore/layout.html.twig' %}
+{% trans_default_domain 'BkstgScheduleBundle' %}
+
+{% set page_title = 'Create new resource' %}
+
+{% block content %}
+  {% include '@BkstgResource/Resource/_form.html.twig' with { 'form': form } only %}
+{% endblock %}
