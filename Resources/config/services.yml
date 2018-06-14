@@ -35,3 +35,9 @@ services:
         resource: '../../Security'
         tags:
             - { name: security.voter }
+
+    # Twig extension services.
+    Bkstg\ResourceBundle\Twig\:
+        resource: '../../Twig'
+        tags:
+            - { name: twig.extension }

@@ -6,6 +6,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
+          <th></th>
           <th>{{ 'Name'|trans }}</th>
           <th>{{ 'Created'|trans }}</th>
           <th>{{ 'Updated'|trans }}</th>
@@ -16,7 +17,8 @@
       <tbody>
       {% for resource in resources %}
         <tr{% if resource.pinned %} class="table-warning"{% endif %}>
-          <td><a href="{{ url('bkstg_resource_show', { 'production_slug': production.slug, 'id': resource.id }) }}">{{ resource.name }}</a></td>
+          <td><a href="{% path resource.media, 'reference' %}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-download"></i><span class="sr-only">{{ 'Download resource "%name%".'|trans({'%name%': resource.name}) }}</span></a></td>
+          <td><i class="fa fa-{{ file_icon(resource.media) }}"></i> <a href="{{ url('bkstg_resource_show', { 'production_slug': production.slug, 'id': resource.id }) }}">{{ resource.name }}</a></td>
           <td>{{ resource.created|date('M d, Y H:i:s') }}</td>
           <td>{{ resource.updated|date('M d, Y H:i:s') }}</td>
           <td>{{ resource.author }}</td>
