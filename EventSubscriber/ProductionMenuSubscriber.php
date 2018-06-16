@@ -56,5 +56,25 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
             'extras' => ['icon' => 'file'],
         ]);
         $menu->addChild($resource);
+
+        // If this user is an editor create the post and archive items.
+        if ($this->auth->isGranted('GROUP_ROLE_EDITOR', $group)) {
+            $resources = $this->factory->createItem('bkstg.resource.resources', [
+                'label' => $this->translator->trans('menu.resource.resources', [], 'BkstgResourceBundle'),
+                'uri' => $this->url_generator->generate(
+                    'bkstg_resource_index',
+                    ['production_slug' => $group->getSlug()]
+                ),
+            ]);
+            $resource->addChild($resources);
+            $archive = $this->factory->createItem('bkstg.resource.archive', [
+                'label' => $this->translator->trans('menu.resource.archive', [], 'BkstgResourceBundle'),
+                'uri' => $this->url_generator->generate(
+                    'bkstg_resource_archive',
+                    ['production_slug' => $group->getSlug()]
+                ),
+            ]);
+            $resource->addChild($archive);
+        }
     }
 }

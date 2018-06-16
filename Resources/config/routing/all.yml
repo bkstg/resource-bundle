@@ -2,6 +2,10 @@ bkstg_resource_index:
     path: /
     defaults:
         _controller: Bkstg\ResourceBundle\Controller\ResourceController:indexAction
+bkstg_resource_archive:
+    path: /archive
+    defaults:
+        _controller: Bkstg\ResourceBundle\Controller\ResourceController:archiveAction
 bkstg_resource_create:
     path: /create
     defaults:

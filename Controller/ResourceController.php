@@ -45,6 +45,33 @@ class ResourceController extends Controller
         ));
     }
 
+    public function archiveAction(
+        $production_slug,
+        PaginatorInterface $paginator,
+        AuthorizationCheckerInterface $auth,
+        Request $request
+    ) {
+        $production_repo = $this->em->getRepository(Production::class);
+        if (null === $production = $production_repo->findOneBy(['slug' => $production_slug])) {
+            throw new NotFoundHttpException();
+        }
+
+        if (!$auth->isGranted('GROUP_ROLE_EDITOR', $production)) {
+            throw new AccessDeniedException();
+        }
+
+        $resource_repo = $this->em->getRepository(Resource::class);
+        $query = $resource_repo->findAllByGroupQuery($production, false);
+        $resources = $paginator->paginate($query, $request->query->getInt('page', 1));
+
+        return new Response($this->templating->render(
+            '@BkstgResource/Resource/archive.html.twig', [
+                'resources' => $resources,
+                'production' => $production,
+            ]
+        ));
+    }
+
     public function createAction(
         $production_slug,
         TokenStorageInterface $token,
