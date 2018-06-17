@@ -33,6 +33,10 @@
             {% endif %}
           </td>
         </tr>
+      {% else %}
+          <tr>
+            <td colspan="6">{{ 'resources.archive_no_resources'|trans }}</td>
+          </tr>
       {% endfor %}
       </tbody>
     </table>

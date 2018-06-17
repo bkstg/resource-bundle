@@ -30,6 +30,10 @@
             {% endif %}
           </td>
         </tr>
+      {% else %}
+          <tr>
+            <td colspan="6">{{ 'resources.no_resources'|trans }}</td>
+          </tr>
       {% endfor %}
       </tbody>
     </table>
