@@ -7,7 +7,7 @@ resource:
     created: Resource created.
     updated: Resource %name% updated.
     form:
-        status: Status
+        active: Active
         name: Name
         file: File
         description: Description

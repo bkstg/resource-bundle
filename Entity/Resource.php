@@ -3,18 +3,20 @@
 namespace Bkstg\ResourceBundle\Entity;
 
 use Bkstg\CoreBundle\Entity\Production;
+use Bkstg\CoreBundle\Model\PublishableInterface;
 use Bkstg\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
 use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
 
-class Resource implements GroupableInterface
+class Resource implements GroupableInterface, PublishableInterface
 {
     private $id;
     private $name;
     private $description;
     private $pinned;
-    private $status;
+    private $active;
+    private $published;
     private $author;
     private $created;
     private $updated;
@@ -94,21 +96,40 @@ class Resource implements GroupableInterface
     }
 
     /**
-     * Get status
+     * Get active
      * @return
      */
-    public function getStatus(): ?bool
+    public function isActive(): bool
     {
-        return $this->status;
+        return ($this->active === true);
     }
 
     /**
-     * Set status
+     * Set active
      * @return $this
      */
-    public function setStatus(bool $status): self
+    public function setActive(bool $active): self
     {
-        $this->status = $status;
+        $this->active = $active;
+        return $this;
+    }
+
+    /**
+     * Get published
+     * @return
+     */
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    /**
+     * Set published
+     * @return $this
+     */
+    public function setPublished(bool $published): self
+    {
+        $this->published = $published;
         return $this;
     }
 

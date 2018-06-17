@@ -33,8 +33,8 @@ class ResourceType extends AbstractType
                 'config' => ['toolbar' => 'basic'],
                 'required' => false,
             ])
-            ->add('status', ChoiceType::class, [
-                'label' => 'resource.form.status',
+            ->add('active', ChoiceType::class, [
+                'label' => 'resource.form.active',
                 'choices' => [
                     'Active' => true,
                     'Closed' => false,

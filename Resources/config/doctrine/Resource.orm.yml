@@ -17,7 +17,9 @@ Bkstg\ResourceBundle\Entity\Resource:
             nullable: true
         pinned:
             type: boolean
-        status:
+        active:
+            type: boolean
+        published:
             type: boolean
         author:
             type: string

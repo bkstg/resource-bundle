@@ -91,7 +91,7 @@ class ResourceController extends Controller
 
         $resource = new Resource();
         $resource->setAuthor($user->getUsername());
-        $resource->setStatus(true);
+        $resource->setActive(true);
         $resource->setPinned(false);
         $resource->addGroup($production);
 

@@ -14,7 +14,7 @@ use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
  */
 class ResourceRepository extends EntityRepository
 {
-    public function findAllByGroupQuery(GroupInterface $group, bool $status = true)
+    public function findAllByGroupQuery(GroupInterface $group, bool $active = true)
     {
         $qb = $this->createQueryBuilder('r');
         return $qb
@@ -22,11 +22,11 @@ class ResourceRepository extends EntityRepository
 
             // Add conditions.
             ->andWhere($qb->expr()->eq('g', ':group'))
-            ->andWhere($qb->expr()->eq('r.status', ':status'))
+            ->andWhere($qb->expr()->eq('r.active', ':active'))
 
             // Add parameters.
             ->setParameter('group', $group)
-            ->setParameter('status', $status)
+            ->setParameter('active', $active)
 
             // Order by and get results.
             ->orderBy('r.pinned', 'DESC')
