@@ -3,32 +3,22 @@
 namespace Bkstg\ResourceBundle\EventSubscriber;
 
 use Bkstg\CoreBundle\Event\ProductionMenuCollectionEvent;
-use Bkstg\CoreBundle\Menu\Item\IconMenuItem;
+use Bkstg\ResourceBundle\BkstgResourceBundle;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class ProductionMenuSubscriber implements EventSubscriberInterface
 {
-
     private $factory;
-    private $url_generator;
     private $auth;
-    private $translator;
 
     public function __construct(
         FactoryInterface $factory,
-        UrlGeneratorInterface $url_generator,
-        AuthorizationCheckerInterface $auth,
-        TranslatorInterface $translator
+        AuthorizationCheckerInterface $auth
     ) {
         $this->factory = $factory;
-        $this->url_generator = $url_generator;
         $this->auth = $auth;
-        $this->translator = $translator;
     }
 
     public static function getSubscribedEvents()
@@ -47,34 +37,31 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
         $group = $event->getGroup();
 
         // Create resource menu item.
-        $resource = $this->factory->createItem(
-            $this->translator->trans('menu.resources', [], 'BkstgResourceBundle'), [
-            'uri' => $this->url_generator->generate(
-                'bkstg_resource_index',
-                ['production_slug' => $group->getSlug()]
-            ),
-            'extras' => ['icon' => 'file'],
+        $resources = $this->factory->createItem('menu_item.resources', [
+            'route' => 'bkstg_resource_index',
+            'routeParameters' => ['production_slug' => $group->getSlug()],
+            'extras' => [
+                'icon' => 'file',
+                'translation_domain' => BkstgResourceBundle::TRANSLATION_DOMAIN,
+            ],
         ]);
-        $menu->addChild($resource);
+        $menu->addChild($resources);
 
         // If this user is an editor create the post and archive items.
         if ($this->auth->isGranted('GROUP_ROLE_EDITOR', $group)) {
-            $resources = $this->factory->createItem('bkstg.resource.resources', [
-                'label' => $this->translator->trans('menu.resource.resources', [], 'BkstgResourceBundle'),
-                'uri' => $this->url_generator->generate(
-                    'bkstg_resource_index',
-                    ['production_slug' => $group->getSlug()]
-                ),
+            $resources_resources = $this->factory->createItem('menu_item.resources_resources', [
+                'route' => 'bkstg_resource_index',
+                'routeParameters' => ['production_slug' => $group->getSlug()],
+                'extras' => ['translation_domain' => BkstgResourceBundle::TRANSLATION_DOMAIN],
             ]);
-            $resource->addChild($resources);
-            $archive = $this->factory->createItem('bkstg.resource.archive', [
-                'label' => $this->translator->trans('menu.resource.archive', [], 'BkstgResourceBundle'),
-                'uri' => $this->url_generator->generate(
-                    'bkstg_resource_archive',
-                    ['production_slug' => $group->getSlug()]
-                ),
+            $resources->addChild($resources_resources);
+
+            $archive = $this->factory->createItem('menu_item.resources_archive', [
+                'route' => 'bkstg_resource_archive',
+                'routeParameters' => ['production_slug' => $group->getSlug()],
+                'extras' => ['translation_domain' => BkstgResourceBundle::TRANSLATION_DOMAIN],
             ]);
-            $resource->addChild($archive);
+            $resources->addChild($archive);
         }
     }
 }

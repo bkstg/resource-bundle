@@ -1,8 +1,7 @@
-menu:
+menu_item:
     resources: 'Resources'
-    resource:
-        resources: 'Resources'
-        archive: 'Archive'
+    resources_resources: 'Resources'
+    resources_archive: 'Archive'
 
 resource:
     created: Resource created.
