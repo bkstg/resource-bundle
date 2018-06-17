@@ -2,6 +2,7 @@
 
 namespace Bkstg\ResourceBundle\Form;
 
+use Bkstg\ResourceBundle\BkstgResourceBundle;
 use Bkstg\ResourceBundle\Entity\Resource;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\MediaBundle\Form\Type\MediaType;
@@ -24,6 +25,7 @@ class ResourceType extends AbstractType
                 'label' => 'resource.form.file',
                 'provider' => 'sonata.media.provider.file',
                 'context'  => 'default',
+                'translation_domain' => BkstgResourceBundle::TRANSLATION_DOMAIN,
             ])
             ->add('name', TextType::class, [
                 'label' => 'resource.form.name',

@@ -17,3 +17,6 @@ resources:
     no_resources: 'No resources available yet.'
     archive_no_resources: 'No resources in the archive right now.'
     archive_info: 'These resources have either expired or are inactive, you can edit them here.'
+
+widget_label_binary_content: 'File upload'
+widget_label_unlink: 'Remove'
