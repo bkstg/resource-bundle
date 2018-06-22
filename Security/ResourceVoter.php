@@ -27,7 +27,7 @@ class ResourceVoter extends GroupableEntityVoter
         return true;
     }
 
-    public function canEdit(GroupableInterface $resource, TokenInterface $token)
+    public function canEdit(GroupableInterface $resource, TokenInterface $token): bool
     {
         $user = $token->getUser();
         foreach ($resource->getGroups() as $group) {
