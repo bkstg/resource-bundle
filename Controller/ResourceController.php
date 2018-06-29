@@ -196,7 +196,8 @@ class ResourceController extends Controller
         }
 
         return new Response($this->templating->render(
-            '@BkstgResource/Resource/read.html.twig', [
+            '@BkstgResource/Resource/read.html.twig',
+            [
                 'production' => $production,
                 'resource' => $resource,
             ]
@@ -308,7 +309,8 @@ class ResourceController extends Controller
 
         // Render the form.
         return new Response($this->templating->render(
-            '@BkstgResource/Resource/delete.html.twig', [
+            '@BkstgResource/Resource/delete.html.twig',
+            [
                 'resource' => $resource,
                 'production' => $production,
                 'form' => $form->createView(),
