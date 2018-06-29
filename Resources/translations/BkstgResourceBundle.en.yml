@@ -25,6 +25,10 @@ resource:
         description: Description
         pinned: Pinned
     label:
+        file_information: 'File information'
+        size: 'Size'
+        mimetype: 'Mimetype'
+        download: 'Download'
         name: 'Name'
         status: 'Status'
         created: 'Created'

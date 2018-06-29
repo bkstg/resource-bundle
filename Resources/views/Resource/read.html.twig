@@ -1,19 +1,21 @@
 {% extends '@BkstgCore/layout.html.twig' %}
+{% trans_default_domain 'BkstgResourceBundle' %}
 {% set page_title = resource.name %}
+
 {% block content %}
   {% include '@BkstgResource/Resource/_actions.html.twig' with { 'resource': resource, 'production': production } only %}
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-8">
-        <p>{{ resource.description|raw }}</p>
+        <p>{{ resource.description|purify }}</p>
       </div>
       <div class="col-md-4">
-        <h5><i class="fa fa-{{ file_icon(resource.media) }}"></i> {{ 'File information'|trans }}</h5>
+        <h5><i class="fa fa-{{ file_icon(resource.media) }}"></i> {{ 'resource.label.file_information'|trans }}</h5>
         <p><ul class="list-group">
-          <li class="list-group-item"><strong>{{ 'Size'|trans }}:</strong> {{ (resource.media.size / 1024)|number_format }} Kb</li>
-          <li class="list-group-item"><strong>{{ 'Mimetype'|trans }}:</strong> {{ resource.media.contenttype }}</li>
+          <li class="list-group-item"><strong>{{ 'resource.label.size'|trans }}:</strong> {{ (resource.media.size / 1024)|number_format }} Kb</li>
+          <li class="list-group-item"><strong>{{ 'resource.label.mimetype'|trans }}:</strong> {{ resource.media.contenttype }}</li>
         </ul></p>
-        <p><a href="{% path resource.media, 'reference' %}" target="_blank" class="btn btn-primary btn-lg btn-block"><i class="fa fa-download"></i> {{ 'Download'|trans }}</a></p>
+        <p><a href="{% path resource.media, 'reference' %}" target="_blank" class="btn btn-primary btn-lg btn-block"><i class="fa fa-download"></i> {{ 'resource.label.download'|trans }}</a></p>
       </div>
     </div>
   </div>
