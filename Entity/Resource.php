@@ -6,6 +6,7 @@ use Bkstg\CoreBundle\Entity\Production;
 use Bkstg\CoreBundle\Model\PublishableInterface;
 use Bkstg\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
 use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
 
@@ -23,24 +24,28 @@ class Resource implements GroupableInterface, PublishableInterface
     private $media;
     private $groups;
 
+    /**
+     * Create a new resource.
+     */
     public function __construct()
     {
         $this->groups = new ArrayCollection();
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return integer
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * Get name
-     * @return
+     * Get name.
+     *
+     * @return string
      */
     public function getName(): ?string
     {
@@ -48,8 +53,10 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set name
-     * @return $this
+     * Set name.
+     *
+     * @param  string $name The name.
+     * @return self
      */
     public function setName(string $name): self
     {
@@ -58,8 +65,9 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get description
-     * @return
+     * Get description.
+     *
+     * @return string
      */
     public function getDescription(): ?string
     {
@@ -67,8 +75,10 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set description
-     * @return $this
+     * Set description.
+     *
+     * @param  string $description The description.
+     * @return self
      */
     public function setDescription(string $description): self
     {
@@ -77,8 +87,9 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get pinned
-     * @return
+     * Get pinned.
+     *
+     * @return boolean
      */
     public function getPinned(): ?bool
     {
@@ -86,8 +97,10 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set pinned
-     * @return $this
+     * Set pinned.
+     *
+     * @param boolean $pinned The pinned status.
+     * @return self
      */
     public function setPinned(bool $pinned): self
     {
@@ -96,8 +109,9 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get active
-     * @return
+     * Get active.
+     *
+     * @return boolean
      */
     public function isActive(): bool
     {
@@ -105,8 +119,10 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set active
-     * @return $this
+     * Set active.
+     *
+     * @param boolean $active The active state.
+     * @return self
      */
     public function setActive(bool $active): self
     {
@@ -115,17 +131,20 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get published
-     * @return
+     * Get published.
+     *
+     * @return boolean
      */
     public function isPublished(): bool
     {
-        return $this->published;
+        return ($this->published === true);
     }
 
     /**
-     * Set published
-     * @return $this
+     * Set published.
+     *
+     * @param boolean $published The published state.
+     * @return self
      */
     public function setPublished(bool $published): self
     {
@@ -134,8 +153,9 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get author
-     * @return
+     * Get author.
+     *
+     * @return string
      */
     public function getAuthor(): ?string
     {
@@ -143,8 +163,10 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set author
-     * @return $this
+     * Set author.
+     *
+     * @param string $author The author to set.
+     * @return self
      */
     public function setAuthor(string $author): self
     {
@@ -153,8 +175,9 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get created
-     * @return
+     * Get created.
+     *
+     * @return \DateTimeInterface
      */
     public function getCreated(): ?\DateTimeInterface
     {
@@ -162,8 +185,10 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set created
-     * @return $this
+     * Set created.
+     *
+     * @param \DateTimeInterface $created The created time.
+     * @return self
      */
     public function setCreated(\DateTimeInterface $created): self
     {
@@ -172,8 +197,9 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get updated
-     * @return
+     * Get updated.
+     *
+     * @return \DateTimeInterface
      */
     public function getUpdated(): ?\DateTimeInterface
     {
@@ -181,8 +207,10 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set updated
-     * @return $this
+     * Set updated.
+     *
+     * @param \DateTimeInterface $updated The updated time.
+     * @return self
      */
     public function setUpdated(\DateTimeInterface $updated): self
     {
@@ -191,8 +219,9 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get media
-     * @return
+     * Get media.
+     *
+     * @return Media
      */
     public function getMedia(): ?Media
     {
@@ -200,8 +229,10 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set media
-     * @return $this
+     * Set media.
+     *
+     * @param Media $media The media.
+     * @return self
      */
     public function setMedia(Media $media): self
     {
@@ -212,14 +243,14 @@ class Resource implements GroupableInterface, PublishableInterface
     /**
      * Add group
      *
-     * @param Production $group
-     *
-     * @return Post
+     * @param GroupInterface $group The group to set.
+     * @throws \Exception If the group is not a production.
+     * @return self
      */
     public function addGroup(GroupInterface $group): self
     {
         if (!$group instanceof Production) {
-            throw new \Exception('Group type not supported.');
+            throw new \Exception(sprintf('The group type "%s" is not supported.', get_class($group)));
         }
         $this->groups[] = $group;
 
@@ -227,38 +258,35 @@ class Resource implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Remove group
+     * Remove group.
      *
-     * @param Production $group
+     * @param GroupInterface $group The group to remove.
+     * @return self
      */
     public function removeGroup(GroupInterface $group): self
     {
-        if (!$group instanceof Production) {
-            throw new \Exception('Group type not supported.');
-        }
         $this->groups->removeElement($group);
+        return $this;
     }
 
     /**
-     * Get groups
+     * Get groups.
      *
      * @return Collection
      */
-    public function getGroups()
+    public function getGroups(): Collection
     {
         return $this->groups;
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @param  GroupInterface $group The group to check for.
+     * @return boolean
      */
     public function hasGroup(GroupInterface $group): bool
     {
-        foreach ($this->groups as $my_group) {
-            if ($group->isEqualTo($my_group)) {
-                return true;
-            }
-        }
-        return false;
+        return $this->groups->contains($group);
     }
 }
