@@ -157,7 +157,7 @@ class ResourceController extends Controller
                 $this->translator->trans('resource.created', [], 'BkstgResourceBundle')
             );
             return new RedirectResponse($this->url_generator->generate(
-                'bkstg_resource_show',
+                'bkstg_resource_read',
                 [
                     'id' => $resource->getId(),
                     'production_slug' => $production->getSlug(),
@@ -241,7 +241,7 @@ class ResourceController extends Controller
                 $this->translator->trans('resource.updated', ['%name%' => $resource->getName()], 'BkstgResourceBundle')
             );
             return new RedirectResponse($this->url_generator->generate(
-                'bkstg_resource_show',
+                'bkstg_resource_read',
                 [
                     'id' => $resource->getId(),
                     'production_slug' => $production->getSlug(),

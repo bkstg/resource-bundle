@@ -1,19 +1,38 @@
+resources: 'Resources'
+view: 'View'
+edit: 'Edit'
+delete: 'Delete'
+save: 'Save'
+cancel: 'Cancel'
 menu_item:
     resources: 'Resources'
     resources_resources: 'Resources'
     resources_archive: 'Archive'
 
 resource:
+    create: 'Create new resource'
     created: Resource created.
+    update: 'Update resource "%name%"'
     updated: Resource %name% updated.
+    download: 'Download resource "%name%".'
     form:
         active: Active
+        active_choices:
+            active: 'Active'
+            closed: 'Closed'
         name: Name
         file: File
         description: Description
         pinned: Pinned
-
-resources:
+    label:
+        name: 'Name'
+        status: 'Status'
+        created: 'Created'
+        updated: 'Updated'
+        author: 'Author'
+    status:
+        unpublished: 'Unpublished'
+        closed: 'Closed'
     no_resources: 'No resources available yet.'
     archive_no_resources: 'No resources in the archive right now.'
     archive_info: 'These resources have either expired or are inactive, you can edit them here.'

@@ -10,11 +10,11 @@ bkstg_resource_create:
     path: /create
     defaults:
         _controller: Bkstg\ResourceBundle\Controller\ResourceController:createAction
-bkstg_resource_show:
+bkstg_resource_read:
     path: /{id}
     defaults:
         _controller: Bkstg\ResourceBundle\Controller\ResourceController:readAction
-bkstg_resource_edit:
+bkstg_resource_update:
     path: /{id}/edit
     defaults:
         _controller: Bkstg\ResourceBundle\Controller\ResourceController:updateAction

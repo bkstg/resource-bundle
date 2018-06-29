@@ -17,6 +17,10 @@ class ResourceType extends AbstractType
 {
     /**
      * {@inheritdoc}
+     *
+     * @param  FormBuilderInterface $builder The form builder.
+     * @param  array                $options The form options.
+     * @return void
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -38,8 +42,8 @@ class ResourceType extends AbstractType
             ->add('active', ChoiceType::class, [
                 'label' => 'resource.form.active',
                 'choices' => [
-                    'Active' => true,
-                    'Closed' => false,
+                    'resource.form.active_choices.active' => true,
+                    'resource.form.active_choices.closed' => false,
                 ],
             ])
             ->add('pinned', CheckboxType::class, [
@@ -51,6 +55,9 @@ class ResourceType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @param  OptionsResolver $resolver The option resolver.
+     * @return void
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -58,13 +65,5 @@ class ResourceType extends AbstractType
             'translation_domain' => 'BkstgResourceBundle',
             'data_class' => Resource::class,
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'bkstg_resourcebundle_resource';
     }
 }

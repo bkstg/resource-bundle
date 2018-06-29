@@ -1,57 +1,48 @@
 {% extends '@BkstgCore/layout.html.twig' %}
-{% set page_title = 'Resources'|trans %}
 {% trans_default_domain 'BkstgResourceBundle' %}
+{% set page_title = 'resources'|trans %}
+
 {% block content %}
+  {# Link to create a new resource. #}
+  <a href="{{ url('bkstg_resource_create', {'production_slug': production.slug}) }}" class="btn btn-success">
+    <i class="fa fa-plus" aria-hidden="true"></i> {{ 'resource.create'|trans }}
+  </a>
+
   <p><div class="table-responsive">
     <table class="table table-striped">
       <thead>
         <tr>
           <th></th>
-          <th>{{ 'Name'|trans }}</th>
-          <th>{{ 'Created'|trans }}</th>
-          <th>{{ 'Updated'|trans }}</th>
-          <th>{{ 'Author'|trans }}</th>
-          <th></th>
+          <th>{{ 'resource.label.name'|trans }}</th>
+          <th>{{ 'resource.label.created'|trans }}</th>
+          <th>{{ 'resource.label.updated'|trans }}</th>
+          <th>{{ 'resource.label.author'|trans }}</th>
         </tr>
       </thead>
       <tbody>
       {% for resource in resources %}
         <tr{% if resource.pinned %} class="table-warning"{% endif %}>
-          <td><a href="{% path resource.media, 'reference' %}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-download"></i><span class="sr-only">{{ 'Download resource "%name%".'|trans({'%name%': resource.name}) }}</span></a></td>
-          <td><i class="fa fa-{{ file_icon(resource.media) }}"></i> <a href="{{ url('bkstg_resource_show', { 'production_slug': production.slug, 'id': resource.id }) }}">{{ resource.name }}</a></td>
-          <td>{{ resource.created|date('M d, Y H:i:s') }}</td>
-          <td>{{ resource.updated|date('M d, Y H:i:s') }}</td>
-          <td>{{ resource.author }}</td>
           <td>
+            <a href="{% path resource.media, 'reference' %}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-download"></i><span class="sr-only">{{ 'resource.download'|trans({'%name%': resource.name}) }}</span></a>
             {% if is_granted('edit', resource) %}
-              <a href="{{ url('bkstg_resource_edit', {'production_slug': production.slug, 'id': resource.id}) }}">Edit</a>
-              -
-              <a href="{{ url('bkstg_resource_delete', {'production_slug': production.slug, 'id': resource.id}) }}">Delete</a>
+              <div class="btn-group btn-group-sm">
+                <a href="{{ url('bkstg_resource_update', {'production_slug': production.slug, 'id': resource.id}) }}" class="btn btn-info"><i class="fa fa-pencil" aria-hidden="true"></i><span class="sr-only">{{ 'edit'|trans }}</span></a>
+                <a href="{{ url('bkstg_resource_delete', {'production_slug': production.slug, 'id': resource.id}) }}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i><span class="sr-only">{{ 'delete'|trans }}</span></a>
+              </div>
             {% endif %}
           </td>
+          <td><i class="fa fa-{{ file_icon(resource.media) }}"></i> <a href="{{ url('bkstg_resource_read', { 'production_slug': production.slug, 'id': resource.id }) }}">{{ resource.name }}</a></td>
+          <td>{{ resource.created|date(full_date) }}</td>
+          <td>{{ resource.updated|date(full_date) }}</td>
+          <td>{{ get_user(resource.author) }}</td>
         </tr>
       {% else %}
-          <tr>
-            <td colspan="6">{{ 'resources.no_resources'|trans }}</td>
-          </tr>
+        <tr>
+          <td colspan="5">{{ 'resource.no_resources'|trans }}</td>
+        </tr>
       {% endfor %}
       </tbody>
     </table>
-    {{ knp_pagination_render(resources) }}
   </div></p>
-{% endblock %}
-
-{# Override header block to add create link #}
-{% block header %}
-  <header>
-    <h1>
-      {% if is_granted('GROUP_ROLE_EDITOR', production) %}
-        <a href="{{ url('bkstg_resource_create', {'production_slug': production.slug}) }}" class="btn btn-success">
-          <span class="fa fa-plus" aria-hidden="true"></span>
-          <span class="sr-only">{{ 'Create new resource'|trans }}</span>
-        </a>
-      {% endif %}
-      {{ page_title }}
-    </h1>
-  </header>
+  {{ knp_pagination_render(resources) }}
 {% endblock %}

@@ -1,4 +1,5 @@
-{% form_theme form '@BkstgResource/Resource/_form.html.twig' %}
+{% trans_default_domain 'BkstgResourceBundle' %}
+
 {{ form_start(form) }}
   {{ form_errors(form) }}
   <div class="form-row">
@@ -9,6 +10,7 @@
   {{ form_row(form.description) }}
   {{ form_row(form.pinned) }}
   <div class="form-group">
-    <button type="submit" class="btn btn-primary">{{ 'Save'|trans }}</button>
+    <a href="{{ url('bkstg_resource_index', {'production_slug': production.slug}) }}" class="btn btn-secondary">{{ 'cancel'|trans }}</a>
+    <button type="submit" class="btn btn-primary">{{ 'save'|trans }}</button>
   </div>
 {{ form_end(form) }}
