@@ -11,6 +11,10 @@ class ResourceVoter extends GroupableEntityVoter
 {
     /**
      * {@inheritdoc}
+     *
+     * @param  mixed $attribute The attribute to vote on.
+     * @param  mixed $subject   The subject to vote on.
+     * @return boolean
      */
     protected function supports($attribute, $subject)
     {
@@ -25,16 +29,5 @@ class ResourceVoter extends GroupableEntityVoter
         }
 
         return true;
-    }
-
-    public function canEdit(GroupableInterface $resource, TokenInterface $token): bool
-    {
-        $user = $token->getUser();
-        foreach ($resource->getGroups() as $group) {
-            if ($this->decision_manager->decide($token, ['GROUP_ROLE_EDITOR'], $group)) {
-                return true;
-            }
-        }
-        return false;
     }
 }

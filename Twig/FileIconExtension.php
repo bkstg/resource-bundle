@@ -6,6 +6,11 @@ use Bkstg\MediaBundle\Entity\Media;
 
 class FileIconExtension extends \Twig_Extension
 {
+    /**
+     * Return set of twig functions.
+     *
+     * @return array
+     */
     public function getFunctions()
     {
         return [
@@ -13,6 +18,12 @@ class FileIconExtension extends \Twig_Extension
         ];
     }
 
+    /**
+     * Return a file extension icon.
+     *
+     * @param  Media $media The media to get the icon for.
+     * @return string
+     */
     public function getFileIcon(Media $media)
     {
         switch ($media->getContentType()) {
