@@ -1,5 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the BkstgCoreBundle package.
+ * (c) Luke Bainbridge <http://www.lukebainbridge.ca/>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Bkstg\ResourceBundle\Twig;
 
 use Bkstg\MediaBundle\Entity\Media;
@@ -21,7 +30,8 @@ class FileIconExtension extends \Twig_Extension
     /**
      * Return a file extension icon.
      *
-     * @param  Media $media The media to get the icon for.
+     * @param Media $media The media to get the icon for.
+     *
      * @return string
      */
     public function getFileIcon(Media $media)

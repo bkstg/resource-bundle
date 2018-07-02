@@ -1,5 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the BkstgCoreBundle package.
+ * (c) Luke Bainbridge <http://www.lukebainbridge.ca/>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Bkstg\ResourceBundle\EventSubscriber;
 
 use Bkstg\CoreBundle\Event\ProductionMenuCollectionEvent;
@@ -37,7 +46,7 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
         return [
            ProductionMenuCollectionEvent::NAME => [
                ['addResourceItem', 0],
-           ]
+           ],
         ];
     }
 
@@ -45,7 +54,6 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
      * Add the resource menu items.
      *
      * @param ProductionMenuCollectionEvent $event The menu collection event.
-     * @return void
      */
     public function addResourceItem(ProductionMenuCollectionEvent $event): void
     {

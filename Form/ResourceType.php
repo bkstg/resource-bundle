@@ -1,5 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the BkstgCoreBundle package.
+ * (c) Luke Bainbridge <http://www.lukebainbridge.ca/>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Bkstg\ResourceBundle\Form;
 
 use Bkstg\ResourceBundle\BkstgResourceBundle;
@@ -18,17 +27,16 @@ class ResourceType extends AbstractType
     /**
      * {@inheritdoc}
      *
-     * @param  FormBuilderInterface $builder The form builder.
-     * @param  array                $options The form options.
-     * @return void
+     * @param FormBuilderInterface $builder The form builder.
+     * @param array                $options The form options.
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('media', MediaType::class, [
                 'label' => 'resource.form.file',
                 'provider' => 'sonata.media.provider.file',
-                'context'  => 'default',
+                'context' => 'default',
                 'translation_domain' => BkstgResourceBundle::TRANSLATION_DOMAIN,
             ])
             ->add('name', TextType::class, [
@@ -56,10 +64,9 @@ class ResourceType extends AbstractType
     /**
      * {@inheritdoc}
      *
-     * @param  OptionsResolver $resolver The option resolver.
-     * @return void
+     * @param OptionsResolver $resolver The option resolver.
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'translation_domain' => 'BkstgResourceBundle',

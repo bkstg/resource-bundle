@@ -1,5 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the BkstgCoreBundle package.
+ * (c) Luke Bainbridge <http://www.lukebainbridge.ca/>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Bkstg\ResourceBundle\Controller;
 
 use Bkstg\CoreBundle\Controller\Controller;
@@ -7,7 +16,6 @@ use Bkstg\CoreBundle\Entity\Production;
 use Bkstg\ResourceBundle\Entity\Resource;
 use Bkstg\ResourceBundle\Form\ResourceType;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,12 +29,14 @@ class ResourceController extends Controller
     /**
      * Show a list of resources for a production.
      *
-     * @param  string                        $production_slug The production slug.
-     * @param  PaginatorInterface            $paginator       The paginator service.
-     * @param  AuthorizationCheckerInterface $auth            The authorization checker service.
-     * @param  Request                       $request         The incoming request.
+     * @param string                        $production_slug The production slug.
+     * @param PaginatorInterface            $paginator       The paginator service.
+     * @param AuthorizationCheckerInterface $auth            The authorization checker service.
+     * @param Request                       $request         The incoming request.
+     *
      * @throws NotFoundHttpException When the production is not found.
      * @throws AccessDeniedException When the user is not a member of the production.
+     *
      * @return Response
      */
     public function indexAction(
@@ -52,6 +62,7 @@ class ResourceController extends Controller
 
         // Paginate and render result.
         $resources = $paginator->paginate($query, $request->query->getInt('page', 1));
+
         return new Response($this->templating->render(
             '@BkstgResource/Resource/index.html.twig',
             [
@@ -64,12 +75,14 @@ class ResourceController extends Controller
     /**
      * Show a list of archived resources for a production.
      *
-     * @param  string                        $production_slug The production slug.
-     * @param  PaginatorInterface            $paginator       The paginator service.
-     * @param  AuthorizationCheckerInterface $auth            The authorization checker service.
-     * @param  Request                       $request         The incoming request.
+     * @param string                        $production_slug The production slug.
+     * @param PaginatorInterface            $paginator       The paginator service.
+     * @param AuthorizationCheckerInterface $auth            The authorization checker service.
+     * @param Request                       $request         The incoming request.
+     *
      * @throws NotFoundHttpException When the production is not found.
      * @throws AccessDeniedException When the user is not a member of the production.
+     *
      * @return Response
      */
     public function archiveAction(
@@ -95,6 +108,7 @@ class ResourceController extends Controller
 
         // Paginate and render result.
         $resources = $paginator->paginate($query, $request->query->getInt('page', 1));
+
         return new Response($this->templating->render(
             '@BkstgResource/Resource/archive.html.twig',
             [
@@ -107,12 +121,14 @@ class ResourceController extends Controller
     /**
      * Create a new resource in a production.
      *
-     * @param  string                        $production_slug The production slug.
-     * @param  TokenStorageInterface         $token           The token storage service.
-     * @param  AuthorizationCheckerInterface $auth            The authorization checker service.
-     * @param  Request                       $request         The incoming request.
+     * @param string                        $production_slug The production slug.
+     * @param TokenStorageInterface         $token           The token storage service.
+     * @param AuthorizationCheckerInterface $auth            The authorization checker service.
+     * @param Request                       $request         The incoming request.
+     *
      * @throws NotFoundHttpException When the production is not found.
      * @throws AccessDeniedException When the user is not a member of the production.
+     *
      * @return Response
      */
     public function createAction(
@@ -156,6 +172,7 @@ class ResourceController extends Controller
                 'success',
                 $this->translator->trans('resource.created', [], 'BkstgResourceBundle')
             );
+
             return new RedirectResponse($this->url_generator->generate(
                 'bkstg_resource_read',
                 [
@@ -178,10 +195,12 @@ class ResourceController extends Controller
     /**
      * Read a resource from this production.
      *
-     * @param  integer                       $id              The resource id.
-     * @param  string                        $production_slug The production slug.
-     * @param  AuthorizationCheckerInterface $auth            The authorization checker service.
+     * @param int                           $id              The resource id.
+     * @param string                        $production_slug The production slug.
+     * @param AuthorizationCheckerInterface $auth            The authorization checker service.
+     *
      * @throws AccessDeniedException When the user does not have access to view the resource.
+     *
      * @return Response
      */
     public function readAction(
@@ -207,11 +226,13 @@ class ResourceController extends Controller
     /**
      * Update a resource for this production.
      *
-     * @param  integer                       $id              The resource id.
-     * @param  string                        $production_slug The production slug.
-     * @param  Request                       $request         The incoming request.
-     * @param  AuthorizationCheckerInterface $auth            The authorization checker service.
+     * @param int                           $id              The resource id.
+     * @param string                        $production_slug The production slug.
+     * @param Request                       $request         The incoming request.
+     * @param AuthorizationCheckerInterface $auth            The authorization checker service.
+     *
      * @throws AccessDeniedException When the user does not have access to edit the resource.
+     *
      * @return Response
      */
     public function updateAction(
@@ -241,6 +262,7 @@ class ResourceController extends Controller
                 'success',
                 $this->translator->trans('resource.updated', ['%name%' => $resource->getName()], 'BkstgResourceBundle')
             );
+
             return new RedirectResponse($this->url_generator->generate(
                 'bkstg_resource_read',
                 [
@@ -264,11 +286,13 @@ class ResourceController extends Controller
     /**
      * Delete a resource for this production.
      *
-     * @param  integer                       $id              The resource id.
-     * @param  string                        $production_slug The production slug.
-     * @param  AuthorizationCheckerInterface $auth            The authorization checker service.
-     * @param  Request                       $request         The incoming request.
+     * @param int                           $id              The resource id.
+     * @param string                        $production_slug The production slug.
+     * @param AuthorizationCheckerInterface $auth            The authorization checker service.
+     * @param Request                       $request         The incoming request.
+     *
      * @throws AccessDeniedException When the user does not have access to edit the resource.
+     *
      * @return Response
      */
     public function deleteAction(
@@ -301,6 +325,7 @@ class ResourceController extends Controller
                     '%name%' => $resource->getName(),
                 ])
             );
+
             return new RedirectResponse($this->url_generator->generate(
                 'bkstg_resource_index',
                 ['production_slug' => $production->getSlug()]

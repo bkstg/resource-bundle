@@ -1,5 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the BkstgCoreBundle package.
+ * (c) Luke Bainbridge <http://www.lukebainbridge.ca/>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Bkstg\ResourceBundle\Entity;
 
 use Bkstg\CoreBundle\Entity\Production;
@@ -7,8 +16,8 @@ use Bkstg\CoreBundle\Model\PublishableInterface;
 use Bkstg\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
 use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
+use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
 
 class Resource implements GroupableInterface, PublishableInterface
 {
@@ -35,7 +44,7 @@ class Resource implements GroupableInterface, PublishableInterface
     /**
      * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId(): ?int
     {
@@ -55,12 +64,14 @@ class Resource implements GroupableInterface, PublishableInterface
     /**
      * Set name.
      *
-     * @param  string $name The name.
+     * @param string $name The name.
+     *
      * @return self
      */
     public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -77,19 +88,21 @@ class Resource implements GroupableInterface, PublishableInterface
     /**
      * Set description.
      *
-     * @param  string $description The description.
+     * @param string $description The description.
+     *
      * @return self
      */
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
         return $this;
     }
 
     /**
      * Get pinned.
      *
-     * @return boolean
+     * @return bool
      */
     public function getPinned(): ?bool
     {
@@ -99,56 +112,62 @@ class Resource implements GroupableInterface, PublishableInterface
     /**
      * Set pinned.
      *
-     * @param boolean $pinned The pinned status.
+     * @param bool $pinned The pinned status.
+     *
      * @return self
      */
     public function setPinned(bool $pinned): self
     {
         $this->pinned = $pinned;
+
         return $this;
     }
 
     /**
      * Get active.
      *
-     * @return boolean
+     * @return bool
      */
     public function isActive(): bool
     {
-        return ($this->active === true);
+        return true === $this->active;
     }
 
     /**
      * Set active.
      *
-     * @param boolean $active The active state.
+     * @param bool $active The active state.
+     *
      * @return self
      */
     public function setActive(bool $active): self
     {
         $this->active = $active;
+
         return $this;
     }
 
     /**
      * Get published.
      *
-     * @return boolean
+     * @return bool
      */
     public function isPublished(): bool
     {
-        return ($this->published === true);
+        return true === $this->published;
     }
 
     /**
      * Set published.
      *
-     * @param boolean $published The published state.
+     * @param bool $published The published state.
+     *
      * @return self
      */
-    public function setPublished(bool $published): self
+    public function setPublished(bool $published): PublishableInterface
     {
         $this->published = $published;
+
         return $this;
     }
 
@@ -166,11 +185,13 @@ class Resource implements GroupableInterface, PublishableInterface
      * Set author.
      *
      * @param string $author The author to set.
+     *
      * @return self
      */
     public function setAuthor(string $author): self
     {
         $this->author = $author;
+
         return $this;
     }
 
@@ -188,11 +209,13 @@ class Resource implements GroupableInterface, PublishableInterface
      * Set created.
      *
      * @param \DateTimeInterface $created The created time.
+     *
      * @return self
      */
     public function setCreated(\DateTimeInterface $created): self
     {
         $this->created = $created;
+
         return $this;
     }
 
@@ -210,11 +233,13 @@ class Resource implements GroupableInterface, PublishableInterface
      * Set updated.
      *
      * @param \DateTimeInterface $updated The updated time.
+     *
      * @return self
      */
     public function setUpdated(\DateTimeInterface $updated): self
     {
         $this->updated = $updated;
+
         return $this;
     }
 
@@ -232,19 +257,23 @@ class Resource implements GroupableInterface, PublishableInterface
      * Set media.
      *
      * @param Media $media The media.
+     *
      * @return self
      */
     public function setMedia(Media $media): self
     {
         $this->media = $media;
+
         return $this;
     }
 
     /**
-     * Add group
+     * Add group.
      *
      * @param GroupInterface $group The group to set.
+     *
      * @throws \Exception If the group is not a production.
+     *
      * @return self
      */
     public function addGroup(GroupInterface $group): self
@@ -261,11 +290,13 @@ class Resource implements GroupableInterface, PublishableInterface
      * Remove group.
      *
      * @param GroupInterface $group The group to remove.
+     *
      * @return self
      */
     public function removeGroup(GroupInterface $group): self
     {
         $this->groups->removeElement($group);
+
         return $this;
     }
 
@@ -282,8 +313,9 @@ class Resource implements GroupableInterface, PublishableInterface
     /**
      * {@inheritdoc}
      *
-     * @param  GroupInterface $group The group to check for.
-     * @return boolean
+     * @param GroupInterface $group The group to check for.
+     *
+     * @return bool
      */
     public function hasGroup(GroupInterface $group): bool
     {
