@@ -1,24 +1,30 @@
 bkstg_resource_index:
     path: /
+    methods: [GET]
     defaults:
         _controller: Bkstg\ResourceBundle\Controller\ResourceController:indexAction
 bkstg_resource_archive:
     path: /archive
+    methods: [GET]
     defaults:
         _controller: Bkstg\ResourceBundle\Controller\ResourceController:archiveAction
 bkstg_resource_create:
     path: /create
+    methods: [GET,POST]
     defaults:
         _controller: Bkstg\ResourceBundle\Controller\ResourceController:createAction
 bkstg_resource_read:
     path: /{id}
+    methods: [GET]
     defaults:
         _controller: Bkstg\ResourceBundle\Controller\ResourceController:readAction
 bkstg_resource_update:
     path: /{id}/edit
+    methods: [GET,POST]
     defaults:
         _controller: Bkstg\ResourceBundle\Controller\ResourceController:updateAction
 bkstg_resource_delete:
     path: /{id}/delete
+    methods: [GET,POST]
     defaults:
         _controller: Bkstg\ResourceBundle\Controller\ResourceController:deleteAction
