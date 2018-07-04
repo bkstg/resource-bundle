@@ -164,6 +164,11 @@ class ResourceController extends Controller
 
         // Form is valid, persist and flush.
         if ($form->isSubmitted() && $form->isValid()) {
+            // Cascade active property to media.
+            if (null !== $media = $resource->getMedia()) {
+                $media->setActive($resource->isActive());
+            }
+
             $this->em->persist($resource);
             $this->em->flush();
 
@@ -255,6 +260,11 @@ class ResourceController extends Controller
 
         // Form is submitted, flush changes.
         if ($form->isSubmitted() && $form->isValid()) {
+            // Cascade active property to media.
+            if (null !== $media = $resource->getMedia()) {
+                $media->setActive($resource->isActive());
+            }
+
             $this->em->flush();
 
             // Set success message and redirect.
