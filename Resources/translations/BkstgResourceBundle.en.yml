@@ -52,3 +52,7 @@ resource:
 
 widget_label_binary_content: 'File upload'
 widget_label_unlink: 'Remove'
+
+timeline:
+    created_resource: 'created resource'
+    in: 'in'

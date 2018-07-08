@@ -321,4 +321,9 @@ class Resource implements GroupableInterface, PublishableInterface
     {
         return $this->groups->contains($group);
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
