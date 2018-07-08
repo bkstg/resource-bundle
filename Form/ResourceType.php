@@ -16,6 +16,7 @@ use Bkstg\ResourceBundle\Entity\Resource;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\MediaBundle\Form\Type\MediaType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,6 +33,7 @@ class ResourceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $resource = $options['data'];
         $builder
             ->add('media', MediaType::class, [
                 'label' => 'resource.form.file',
@@ -48,11 +50,16 @@ class ResourceType extends AbstractType
                 'required' => false,
             ])
             ->add('active', ChoiceType::class, [
-                'label' => 'resource.form.active',
-                'choices' => [
-                    'resource.form.active_choices.active' => true,
-                    'resource.form.active_choices.closed' => false,
-                ],
+                    // Show "unpublished" instead of active.
+                    'choice_loader' => new CallbackChoiceLoader(function () use ($resource) {
+                        yield 'resource.form.status_choices.active' => true;
+                        if (!$resource->isPublished()) {
+                            yield 'resource.form.status_choices.unpublished' => false;
+                        } else {
+                            yield 'resource.form.status_choices.archived' => false;
+                        }
+                    }),
+                    'label' => 'resource.form.status',
             ])
             ->add('pinned', CheckboxType::class, [
                 'label' => 'resource.form.pinned',

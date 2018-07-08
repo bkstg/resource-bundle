@@ -32,7 +32,7 @@
             {% endif %}
           </td>
           <td><i class="fa fa-{{ file_icon(resource.media) }}"></i> <a href="{{ url('bkstg_resource_read', { 'production_slug': production.slug, 'id': resource.id }) }}">{{ resource.name }}</a></td>
-          <td>{{ resource.published == false ? 'resource.status.unpublished'|trans : 'resource.status.closed'|trans }}</td>
+          <td>{{ resource.published == false ? 'resource.label.status_choices.unpublished'|trans : 'resource.label.status_choices.archived'|trans }}</td>
           <td>{{ resource.created|date(full_date) }}</td>
           <td>{{ resource.updated|date(full_date) }}</td>
           <td>{{ get_user(resource.author) }}</td>

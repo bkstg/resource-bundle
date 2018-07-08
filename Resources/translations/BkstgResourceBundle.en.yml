@@ -21,10 +21,11 @@ resource:
     delete_no_undo: 'This action cannot be undone.'
     download: 'Download resource "%name%".'
     form:
-        active: Active
-        active_choices:
+        status: 'Status'
+        status_choices:
             active: 'Active'
-            closed: 'Closed'
+            unpublished: 'Unpublished'
+            archived: 'Archived'
         name: Name
         file: File
         description: Description
@@ -36,6 +37,9 @@ resource:
         download: 'Download'
         name: 'Name'
         status: 'Status'
+        status_choices:
+            unpublished: 'Unpublished'
+            archived: 'Archived'
         created: 'Created'
         updated: 'Updated'
         author: 'Author'
@@ -44,7 +48,7 @@ resource:
         closed: 'Closed'
     no_resources: 'No resources available yet.'
     archive_no_resources: 'No resources in the archive right now.'
-    archive_info: 'These resources have either expired or are inactive, you can edit them here.'
+    archive_info: 'These resources are either unpublished or archived, you can edit them here.'
 
 widget_label_binary_content: 'File upload'
 widget_label_unlink: 'Remove'
