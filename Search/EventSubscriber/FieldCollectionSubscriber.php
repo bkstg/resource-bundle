@@ -22,7 +22,7 @@ class FieldCollectionSubscriber implements EventSubscriberInterface
             'name',
             'description',
             'author',
-            'media.filename',
+            'media.name',
         ]);
     }
 }
