@@ -30,7 +30,7 @@ class FilterCollectionSubscriber implements EventSubscriberInterface
         $now = new \DateTime();
         $qb = $event->getQueryBuilder();
         $query = $qb->query()->bool()
-            ->addMust($qb->query()->term(['_type' => 'resource']))
+            ->addMust($qb->query()->term(['_index' => 'resource']))
             ->addMust($qb->query()->term(['active' => true]))
             ->addMust($qb->query()->terms('groups.id', $event->getGroupIds()))
         ;
