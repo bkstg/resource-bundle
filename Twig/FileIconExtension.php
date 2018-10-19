@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Bkstg\ResourceBundle\Twig;
 
-use Bkstg\MediaBundle\Entity\Media;
+use Bkstg\CoreBundle\Entity\Media;
 
 class FileIconExtension extends \Twig_Extension
 {

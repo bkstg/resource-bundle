@@ -39,7 +39,7 @@ Bkstg\ResourceBundle\Entity\Resource:
             targetEntity: Bkstg\CoreBundle\Entity\Production
     oneToOne:
         media:
-          targetEntity: Bkstg\MediaBundle\Entity\Media
+          targetEntity: Bkstg\CoreBundle\Entity\Media
           cascade:
             - persist
             - remove

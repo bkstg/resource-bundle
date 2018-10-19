@@ -13,7 +13,7 @@ namespace Bkstg\ResourceBundle\Entity;
 
 use Bkstg\CoreBundle\Entity\Production;
 use Bkstg\CoreBundle\Model\PublishableInterface;
-use Bkstg\MediaBundle\Entity\Media;
+use Bkstg\CoreBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
