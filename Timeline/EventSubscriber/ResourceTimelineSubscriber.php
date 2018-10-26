@@ -36,6 +36,11 @@ class ResourceTimelineSubscriber implements EventSubscriberInterface
         $this->user_provider = $user_provider;
     }
 
+    /**
+     * Return the events this subscriber listens for.
+     *
+     * @return array The subscribed events.
+     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -45,6 +50,13 @@ class ResourceTimelineSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Create the resource timeline entry.
+     *
+     * @param EntityPublishedEvent $event The entity published event.
+     *
+     * @return void
+     */
     public function createResourceTimelineEntry(EntityPublishedEvent $event): void
     {
         // Only act on resource objects.

@@ -54,6 +54,8 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
      * Add the resource menu items.
      *
      * @param ProductionMenuCollectionEvent $event The menu collection event.
+     *
+     * @return void
      */
     public function addResourceItem(ProductionMenuCollectionEvent $event): void
     {

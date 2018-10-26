@@ -16,6 +16,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class FilterCollectionSubscriber implements EventSubscriberInterface
 {
+    /**
+     * Return the events this subscriber listens for.
+     *
+     * @return array The subscribed events.
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -25,6 +30,13 @@ class FilterCollectionSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Add the resource filter to search.
+     *
+     * @param FilterCollectionEvent $event The filter collection event.
+     *
+     * @return void
+     */
     public function addResourceFilter(FilterCollectionEvent $event): void
     {
         $now = new \DateTime();

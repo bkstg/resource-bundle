@@ -19,11 +19,21 @@ class CreatedResourceLinkSubscriber implements EventSubscriberInterface
 {
     private $url_generator;
 
+    /**
+     * Create a new resource created listener.
+     *
+     * @param UrlGeneratorInterface $url_generator The url generator service.
+     */
     public function __construct(UrlGeneratorInterface $url_generator)
     {
         $this->url_generator = $url_generator;
     }
 
+    /**
+     * Return the events this subscriber listens for.
+     *
+     * @return array The subscribed events.
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -33,6 +43,13 @@ class CreatedResourceLinkSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Set the link for the created resource.
+     *
+     * @param TimelineLinkEvent $event The timeline link event.
+     *
+     * @return void
+     */
     public function setCreatedResourceLink(TimelineLinkEvent $event): void
     {
         $action = $event->getAction();

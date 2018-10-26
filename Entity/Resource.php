@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace Bkstg\ResourceBundle\Entity;
 
+use Bkstg\CoreBundle\Entity\Media;
 use Bkstg\CoreBundle\Entity\Production;
 use Bkstg\CoreBundle\Model\PublishableInterface;
-use Bkstg\CoreBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
@@ -322,6 +322,11 @@ class Resource implements GroupableInterface, PublishableInterface
         return $this->groups->contains($group);
     }
 
+    /**
+     * Return the string representation of the resource.
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->name;

@@ -19,6 +19,10 @@ class ResourceAdminSpread extends AdminSpread
 {
     /**
      * {@inheritdoc}
+     *
+     * @param ActionInterface $action The action.
+     *
+     * @return bool
      */
     public function supports(ActionInterface $action)
     {
